@@ -1,0 +1,89 @@
+<mat-toolbar>
+  <button mat-icon-button
+          onclick="this.blur()"
+          [mat-menu-trigger-for]="menu">
+    <mat-icon fontSet="material-icons-outlined">insert_drive_file</mat-icon>
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu" yPosition="below">
+    <button mat-menu-item (click)="triggerAction('new_diagram')">Шинэ</button>
+    <button mat-menu-item (click)="renameDiagram()">Засварлах</button>
+    <button mat-menu-item (click)="file.click()">Нээх</button>
+    <button mat-menu-item [matMenuTriggerFor]="saveAs">Хадгалах...</button>
+  </mat-menu>
+
+  <mat-menu #saveAs="matMenu">
+    <button mat-menu-item
+            onclick="this.blur()"
+            (click)="triggerAction('save_as_new')">Шинэ Диаграм</button>
+    <button mat-menu-item (click)="triggerAction('download_xml')">.bpmn file</button>
+  </mat-menu>
+
+  <mat-divider class="style-fix" [vertical]="true"></mat-divider>
+
+  <button mat-icon-button
+          matTooltip="Save to server"
+          matTooltipShowDelay="500"
+          onclick="this.blur()"
+          (click)="triggerAction('save_to_server')">
+    <mat-icon>save</mat-icon>
+  </button>
+
+  <mat-divider class="style-fix" [vertical]="true"></mat-divider>
+
+  <button mat-icon-button [disabled]="!editMode" (click)="triggerAction('undo')">
+    <mat-icon class="rotate-270">replay</mat-icon>
+  </button>
+
+  <button mat-icon-button [disabled]="!editMode" (click)="triggerAction('redo')">
+    <mat-icon class="mirror">replay</mat-icon>
+  </button>
+
+  <mat-divider class="style-fix" [vertical]="true"></mat-divider>
+
+  <button mat-icon-button
+          matTooltip="Download image"
+          matTooltipShowDelay="500"
+          onclick="this.blur()"
+          (click)="triggerAction('download_img')">
+    <mat-icon fontSet="material-icons-outlined">image</mat-icon>
+  </button>
+
+  <mat-divider class="style-fix" [vertical]="true"></mat-divider>
+
+  <button mat-icon-button
+          matTooltip="Stop simulation"
+          matTooltipShowDelay="1000"
+          style="color: darkred"
+          onclick="this.blur()"
+          (click)="stopSimulation()">
+          <mat-icon>stop</mat-icon>
+  </button>
+  <button mat-icon-button
+          matTooltip="Pause simulation"
+          matTooltipShowDelay="1000"
+          style="color: grey"
+          onclick="this.blur()"
+          (click)="pauseSimulation()">
+          <mat-icon>pause</mat-icon>
+  </button>
+  <div> </div>
+  <button mat-icon-button
+          matTooltip="Start simulation"
+          matTooltipShowDelay="1000"
+          style="color: forestgreen"
+          (click)="startSimulation()">
+          <mat-icon>play_arrow</mat-icon>
+  </button>
+  <button mat-icon-button
+          matTooltip="Simulation properties"
+          matTooltipShowDelay="500"
+          onclick="this.blur()"
+          (click)="openSimParameterDialog()" style="color: black">
+          <mat-icon>settings</mat-icon>
+  </button>
+
+</mat-toolbar>
+
+<input #file hidden type="file" accept=".bpmn" (change)="openFile(file.files)">
